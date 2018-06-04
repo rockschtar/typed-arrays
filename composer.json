@@ -1,0 +1,16 @@
+{
+  "name": "rockschtar/typed-arrays",
+  "license": "MIT",
+  "require": {
+  },
+  "require-dev": {
+  },
+  "repositories": [
+
+  ],
+  "autoload": {
+    "psr-4": {
+      "Rockschtar\\TypedArrays\\": "src/"
+    }
+  }
+}
