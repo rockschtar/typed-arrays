@@ -14,4 +14,5 @@ class StringArray extends TypedArray {
     public function current() : string {
         parent::current();
     }
+
 }
