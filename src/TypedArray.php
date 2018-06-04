@@ -12,7 +12,7 @@ abstract class TypedArray extends \ArrayIterator {
      * @param array $items
      * @throws \InvalidArgumentException
      */
-    public function __construct(array $items) {
+    public function __construct(array $items = []) {
         foreach($items as $item) {
             if(!$this->validate($item)) {
                 throw new \InvalidArgumentException($item);
