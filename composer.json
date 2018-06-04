@@ -1,13 +1,21 @@
 {
   "name": "rockschtar/typed-arrays",
   "license": "MIT",
+  "authors": [
+    {
+      "name": "Stefan Helmer",
+      "email": "rockschtar@gmail.com"
+    }
+  ],
   "require": {
+    "php": ">=7.1"
   },
   "require-dev": {
   },
   "repositories": [
 
   ],
+
   "autoload": {
     "psr-4": {
       "Rockschtar\\TypedArrays\\": "src/"
