@@ -6,6 +6,7 @@
 namespace Rockschtar\TypedArrays;
 
 class NumericArray extends TypedArray {
+    /** @noinspection SenselessProxyMethodInspection */
 
     /**
      * @return float|int
