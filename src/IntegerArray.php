@@ -12,10 +12,6 @@ class IntegerArray extends TypedArray {
     }
 
     public function validate($value): bool {
-        return \is_numeric($value);
-    }
-
-    public function offsetGet($offset): int {
-        return parent::offsetGet($offset);
+        return \is_int($value);
     }
 }
