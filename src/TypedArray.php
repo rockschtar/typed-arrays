@@ -30,7 +30,7 @@ abstract class TypedArray extends \ArrayIterator {
 
     abstract protected function validate($value): bool;
 
-    abstract protected function is_duplicate($value): bool;
+    abstract protected function isDuplicate($value): bool;
 
     final public static function &init(): self {
         static $instance = null;
@@ -66,7 +66,7 @@ abstract class TypedArray extends \ArrayIterator {
             throw new \InvalidArgumentException('Wrong value');
         }
 
-        if($this->allow_duplicates === false && $this->is_duplicate($value)) {
+        if($this->allow_duplicates === false && $this->isDuplicate($value)) {
             throw new \InvalidArgumentException('Item already exists');
         }
 
