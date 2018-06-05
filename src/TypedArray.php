@@ -7,12 +7,14 @@ namespace Rockschtar\TypedArrays;
 
 abstract class TypedArray extends \ArrayIterator {
 
+    private $allow_duplicates = true;
+
     /**
      * TypedArray constructor.
      * @param array $items
      * @throws \InvalidArgumentException
      */
-    public function __construct(array $items = []) {
+    final public function __construct(array $items = []) {
         foreach($items as $item) {
             if(!$this->validate($item)) {
                 throw new \InvalidArgumentException($item);
@@ -22,8 +24,13 @@ abstract class TypedArray extends \ArrayIterator {
         parent::__construct($items);
     }
 
+    final public function allowDuplicates($allow = true): void {
+        $this->allow_duplicates = $allow;
+    }
 
     abstract protected function validate($value): bool;
+
+    abstract protected function is_duplicate($value): bool;
 
     final public static function &init(): self {
         static $instance = null;
@@ -56,7 +63,11 @@ abstract class TypedArray extends \ArrayIterator {
      */
     final public function append($value): void {
         if(!$this->validate($value)) {
-            throw new \InvalidArgumentException($value);
+            throw new \InvalidArgumentException('Wrong value');
+        }
+
+        if($this->allow_duplicates === false && $this->is_duplicate($value)) {
+            throw new \InvalidArgumentException('Item already exists');
         }
 
         parent::append($value);
