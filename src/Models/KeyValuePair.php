@@ -12,6 +12,16 @@ class KeyValuePair {
     private $value;
 
     /**
+     * KeyValuePair constructor.
+     * @param $key
+     * @param $value
+     */
+    public function __construct($key, $value) {
+        $this->key = $key;
+        $this->value = $value;
+    }
+
+    /**
      * @return mixed
      */
     public function getKey() {
