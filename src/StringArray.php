@@ -15,4 +15,7 @@ class StringArray extends TypedArray {
         parent::current();
     }
 
+    protected function isDuplicate($value): bool {
+        return false;
+    }
 }

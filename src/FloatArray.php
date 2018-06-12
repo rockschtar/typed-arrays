@@ -14,4 +14,9 @@ class FloatArray extends TypedArray {
     protected function validate($value): bool {
         return \is_float($value);
     }
+
+    protected function isDuplicate($value): bool {
+        return false;
+    }
+
 }

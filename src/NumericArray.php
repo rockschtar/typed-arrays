@@ -18,4 +18,8 @@ class NumericArray extends TypedArray {
     protected function validate($value): bool {
         return is_numeric($value);
     }
+
+    protected function isDuplicate($value): bool {
+        return false;
+    }
 }
