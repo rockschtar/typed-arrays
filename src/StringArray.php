@@ -12,7 +12,7 @@ class StringArray extends TypedArray {
     }
 
     public function current() : string {
-        parent::current();
+        return parent::current();
     }
 
     protected function isDuplicate($value): bool {
