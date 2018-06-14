@@ -5,7 +5,7 @@
 
 namespace Rockschtar\TypedArrays;
 
-class StringArray extends TypedArray {
+class StringArray extends PrimitiveTypeArray {
 
     protected function validate($value): bool {
         return \is_string($value);
@@ -13,9 +13,5 @@ class StringArray extends TypedArray {
 
     public function current() : string {
         return parent::current();
-    }
-
-    protected function isDuplicate($value): bool {
-        return false;
     }
 }

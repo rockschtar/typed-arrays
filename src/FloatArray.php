@@ -5,18 +5,13 @@
 
 namespace Rockschtar\TypedArrays;
 
-class FloatArray extends TypedArray {
+class FloatArray extends PrimitiveTypeArray {
+	public function current(): float {
+		return parent::current();
+	}
 
-    public function current(): float {
-        return parent::current();
-    }
-
-    protected function validate($value): bool {
-        return \is_float($value);
-    }
-
-    protected function isDuplicate($value): bool {
-        return false;
-    }
+	final protected function validate($value): bool {
+		return \is_float($value);
+	}
 
 }

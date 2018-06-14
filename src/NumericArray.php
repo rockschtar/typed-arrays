@@ -5,7 +5,7 @@
 
 namespace Rockschtar\TypedArrays;
 
-class NumericArray extends TypedArray {
+class NumericArray extends PrimitiveTypeArray {
     /** @noinspection SenselessProxyMethodInspection */
 
     /**
@@ -19,7 +19,4 @@ class NumericArray extends TypedArray {
         return is_numeric($value);
     }
 
-    protected function isDuplicate($value): bool {
-        return false;
-    }
 }

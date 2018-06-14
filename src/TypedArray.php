@@ -6,80 +6,93 @@
 namespace Rockschtar\TypedArrays;
 
 abstract class TypedArray extends \ArrayIterator {
+	private $allow_duplicates = true;
 
-    private $allow_duplicates = true;
+	/**
+	 * TypedArray constructor.
+	 *
+	 * @param array $items
+	 *
+	 * @throws \InvalidArgumentException
+	 */
+	final public function __construct(array $items = []) {
+		foreach($items as $item) {
+			if(!$this->validate($item)) {
+				throw new \InvalidArgumentException($item);
+			}
+		}
 
-    /**
-     * TypedArray constructor.
-     * @param array $items
-     * @throws \InvalidArgumentException
-     */
-    final public function __construct(array $items = []) {
-        foreach($items as $item) {
-            if(!$this->validate($item)) {
-                throw new \InvalidArgumentException($item);
-            }
-        }
+		parent::__construct($items);
+	}
 
-        parent::__construct($items);
-    }
+	/**
+	 * @param $value
+	 *
+	 * @return bool
+	 */
+	protected function validate($value): bool {
+		return is_a($value, $this->getType());
+	}
 
-    final public function allowDuplicates($allow = true): void {
-        $this->allow_duplicates = $allow;
-    }
+	abstract protected function getType(): string;
 
-    abstract protected function validate($value): bool;
+	/**
+	 * @param mixed ...$values
+	 *
+	 * @return self
+	 * @throws \InvalidArgumentException
+	 */
+	final public static function fromValues(... $values): self {
+		return self::fromArray($values);
+	}
 
-    abstract protected function isDuplicate($value): bool;
+	/**
+	 * @param array $array
+	 *
+	 * @return self
+	 * @throws \InvalidArgumentException
+	 */
+	final public static function fromArray(array $array): self {
+		$typedArray = self::init();
 
-    final public static function &init(): self {
-        static $instance = null;
-        /** @noinspection ClassConstantCanBeUsedInspection */
-        $class = \get_called_class();
-        if($instance === null) {
-            $instance = new $class();
-        }
-        return $instance;
-    }
+		foreach($array as $item) {
+			$typedArray->append($item);
+		}
 
-    /**
-     * @param array $array
-     * @return self
-     * @throws \InvalidArgumentException
-     */
-    final public static function fromArray(array $array) : self {
-        $typedArray = self::init();
+		return $typedArray;
+	}
 
-        foreach($array as $item) {
-            $typedArray->append($item);
-        }
+	final public static function &init(): self {
+		static $instance = null;
+		/** @noinspection ClassConstantCanBeUsedInspection */
+		$class = \get_called_class();
+		if($instance === null) {
+			$instance = new $class();
+		}
 
-        return $typedArray;
-    }
+		return $instance;
+	}
 
-    /**
-     * @param mixed $value
-     * @throws \InvalidArgumentException
-     */
-    final public function append($value): void {
-        if(!$this->validate($value)) {
-            throw new \InvalidArgumentException('Wrong value');
-        }
+	/**
+	 * @param mixed $value
+	 *
+	 * @throws \InvalidArgumentException
+	 */
+	final public function append($value): void {
+		if(!$this->validate($value)) {
+			throw new \InvalidArgumentException('');
+		}
 
-        if($this->allow_duplicates === false && $this->isDuplicate($value)) {
-            throw new \InvalidArgumentException('Item already exists');
-        }
+		if($this->allow_duplicates === false && $this->isDuplicate($value)) {
+			throw new \InvalidArgumentException('Item already exists');
+		}
 
-        parent::append($value);
-    }
+		parent::append($value);
+	}
 
-    /**
-     * @param mixed ...$values
-     * @return self
-     * @throws \InvalidArgumentException
-     */
-    final public static function fromValues(... $values) : self {
-        return self::fromArray($values);
-    }
+	abstract protected function isDuplicate($value): bool;
 
+	final public function allowDuplicates($allow = true): void {
+		$this->allow_duplicates = $allow;
+	}
 }

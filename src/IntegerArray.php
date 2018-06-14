@@ -5,7 +5,7 @@
 
 namespace Rockschtar\TypedArrays;
 
-class IntegerArray extends TypedArray {
+class IntegerArray extends PrimitiveTypeArray {
 
     public function current(): int {
         return parent::current();
@@ -13,9 +13,5 @@ class IntegerArray extends TypedArray {
 
     public function validate($value): bool {
         return \is_int($value);
-    }
-
-    protected function isDuplicate($value): bool {
-        return false;
     }
 }
