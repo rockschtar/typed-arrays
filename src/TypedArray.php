@@ -44,7 +44,7 @@ abstract class TypedArray extends \ArrayIterator {
 
     /**
      * @param array $array
-     * @return self
+     * @return static
      * @throws \InvalidArgumentException
      */
     final public static function fromArray(array $array) : self {
@@ -75,11 +75,30 @@ abstract class TypedArray extends \ArrayIterator {
 
     /**
      * @param mixed ...$values
-     * @return self
+     * @return static
      * @throws \InvalidArgumentException
      */
     final public static function fromValues(... $values) : self {
         return self::fromArray($values);
+    }
+
+    /**
+     * @param array $values
+     * @param callable $callable
+     * @return static
+     */
+    final public static function map(array $values, callable $callable): self {
+
+        $typedArray = self::init();
+
+        $array = array_map($callable, $values);
+
+        foreach($array as $item) {
+            $typedArray->append($item);
+        }
+
+        return $typedArray;
+
     }
 
 }
