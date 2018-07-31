@@ -21,7 +21,7 @@ abstract class PrimitiveTypeArray extends TypedArray {
 		return false;
 	}
 
-	final protected function getType(): string {
+	final public function getType(): string {
 		return '';
 	}
 }
