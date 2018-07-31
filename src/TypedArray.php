@@ -34,7 +34,7 @@ abstract class TypedArray extends \ArrayIterator {
 		return is_a($value, $this->getType());
 	}
 
-	abstract protected function getType(): string;
+	abstract public function getType(): string;
 
 	/**
 	 * @param mixed ...$values
