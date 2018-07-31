@@ -6,93 +6,99 @@
 namespace Rockschtar\TypedArrays;
 
 abstract class TypedArray extends \ArrayIterator {
-	private $allow_duplicates = true;
 
-	/**
-	 * TypedArray constructor.
-	 *
-	 * @param array $items
-	 *
-	 * @throws \InvalidArgumentException
-	 */
-	final public function __construct(array $items = []) {
-		foreach($items as $item) {
-			if(!$this->validate($item)) {
-				throw new \InvalidArgumentException($item);
-			}
-		}
+    private $allow_duplicates = true;
 
-		parent::__construct($items);
-	}
+    /**
+     * TypedArray constructor.
+     * @param array $items
+     * @throws \InvalidArgumentException
+     */
+    final public function __construct(array $items = []) {
+        foreach($items as $item) {
+            if(!$this->validate($item)) {
+                throw new \InvalidArgumentException($item);
+            }
+        }
 
-	/**
-	 * @param $value
-	 *
-	 * @return bool
-	 */
-	protected function validate($value): bool {
-		return is_a($value, $this->getType());
-	}
+        parent::__construct($items);
+    }
 
-	abstract protected function getType(): string;
+    final public function allowDuplicates($allow = true): void {
+        $this->allow_duplicates = $allow;
+    }
 
-	/**
-	 * @param mixed ...$values
-	 *
-	 * @return self
-	 * @throws \InvalidArgumentException
-	 */
-	final public static function fromValues(... $values): self {
-		return self::fromArray($values);
-	}
+    abstract protected function validate($value): bool;
 
-	/**
-	 * @param array $array
-	 *
-	 * @return self
-	 * @throws \InvalidArgumentException
-	 */
-	final public static function fromArray(array $array): self {
-		$typedArray = self::init();
+    abstract protected function isDuplicate($value): bool;
 
-		foreach($array as $item) {
-			$typedArray->append($item);
-		}
+    final public static function &init(): self {
+        static $instance = null;
+        /** @noinspection ClassConstantCanBeUsedInspection */
+        $class = \get_called_class();
+        if($instance === null) {
+            $instance = new $class();
+        }
+        return $instance;
+    }
 
-		return $typedArray;
-	}
+    /**
+     * @param array $array
+     * @return static
+     * @throws \InvalidArgumentException
+     */
+    final public static function fromArray(array $array) : self {
+        $typedArray = self::init();
 
-	final public static function &init(): self {
-		static $instance = null;
-		/** @noinspection ClassConstantCanBeUsedInspection */
-		$class = \get_called_class();
-		if($instance === null) {
-			$instance = new $class();
-		}
+        foreach($array as $item) {
+            $typedArray->append($item);
+        }
 
-		return $instance;
-	}
+        return $typedArray;
+    }
 
-	/**
-	 * @param mixed $value
-	 *
-	 * @throws \InvalidArgumentException
-	 */
-	final public function append($value): void {
-		if(!$this->validate($value)) {
-			throw new \InvalidArgumentException('');
-		}
+    /**
+     * @param mixed $value
+     * @throws \InvalidArgumentException
+     */
+    final public function append($value): void {
+        if(!$this->validate($value)) {
+            throw new \InvalidArgumentException('Wrong value');
+        }
 
-		if($this->allow_duplicates === false && $this->isDuplicate($value)) {
-			throw new \InvalidArgumentException('Item already exists');
-		}
+        if($this->allow_duplicates === false && $this->isDuplicate($value)) {
+            throw new \InvalidArgumentException('Item already exists');
+        }
 
-		parent::append($value);
-	}
+        parent::append($value);
+    }
 
-	abstract protected function isDuplicate($value): bool;
+    /**
+     * @param mixed ...$values
+     * @return static
+     * @throws \InvalidArgumentException
+     */
+    final public static function fromValues(... $values) : self {
+        return self::fromArray($values);
+    }
 
-	final public function allowDuplicates($allow = true): void {
-		$this->allow_duplicates = $allow;
-	}
+    /**
+     * @param array $values
+     * @param callable $callable
+     * @return static
+     */
+    final public static function map(array $values, callable $callable): self {
+
+        $typedArray = self::init();
+
+        $array = array_map($callable, $values);
+
+        foreach($array as $item) {
+            $typedArray->append($item);
+        }
+
+        return $typedArray;
+
+    }
+
 }
