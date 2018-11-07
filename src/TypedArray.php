@@ -15,7 +15,7 @@ abstract class TypedArray extends \ArrayIterator {
 	 *
 	 * @throws \InvalidArgumentException
 	 */
-	final public function __construct(array $items = []) {
+	 public function __construct(array $items = []) {
 		foreach($items as $item) {
 			if(!$this->validate($item)) {
 				throw new \InvalidArgumentException($item);
