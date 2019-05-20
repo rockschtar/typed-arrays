@@ -28,7 +28,7 @@ class TypedArrayTest extends TestCase {
         $testValues[Integer::class] = [1];
         $testValues[FloatArray::class] = [1.1];
         $testValues[NumericArray::class] = [1.1, 2];
-        $testValues[DummyTypedArray::class] = new DummyTypedArray();
+        $testValues[DummyTypedArray::class] = [new DummyTypedArray()];
         return $testValues;
     }
 
