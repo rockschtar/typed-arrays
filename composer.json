@@ -1,5 +1,6 @@
 {
   "name": "rockschtar/typed-arrays",
+  "description": "Primitive typed arrays and typed array abstraction with type hints.",
   "license": "MIT",
   "authors": [
     {

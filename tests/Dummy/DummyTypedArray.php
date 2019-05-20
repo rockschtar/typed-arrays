@@ -11,15 +11,19 @@ namespace Rockschtar\TypedArrays\Test\Dummy;
 use Rockschtar\TypedArrays\TypedArray;
 
 class DummyTypedArray extends TypedArray {
-	public function current() : DummyClass {
-		parent::current();
-	}
+    /**
+     * Overrides parent method for type hints
+     * @return DummyClass
+     */
+    public function current(): DummyClass {
+        return parent::current();
+    }
 
-	protected function getType(): string {
+    /**
+     * Returns the type of the typed array
+     * @return string
+     */
+    protected function getType(): string {
 		return DummyClass::class;
-	}
-
-	protected function isDuplicate($value): bool {
-		return false;
 	}
 }

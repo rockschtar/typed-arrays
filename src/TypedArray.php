@@ -5,10 +5,14 @@
 
 namespace Rockschtar\TypedArrays;
 
+use ArrayIterator;
 use InvalidArgumentException;
 
-abstract class TypedArray extends \ArrayIterator {
+abstract class TypedArray extends ArrayIterator {
 
+    /**
+     * @var bool
+     */
     protected $allowDuplicates = true;
 
     /**
@@ -27,6 +31,11 @@ abstract class TypedArray extends \ArrayIterator {
     }
 
     /**
+     * @return string
+     */
+    abstract protected function getType(): string;
+
+    /**
      * @param $value
      * @return bool
      */
@@ -34,7 +43,19 @@ abstract class TypedArray extends \ArrayIterator {
         return is_a($value, $this->getType());
     }
 
-    abstract protected function getType(): string;
+    /**
+     * @param mixed $itemToValidate
+     * @return bool
+     */
+    protected function isDuplicate($itemToValidate): bool {
+        foreach ($this as $item) {
+            if ($item === $itemToValidate) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     /**
      * @param mixed ...$values
@@ -51,7 +72,7 @@ abstract class TypedArray extends \ArrayIterator {
      * @throws InvalidArgumentException
      */
     final public static function fromArray(array $array): self {
-        $typedArray = self::init();
+        $typedArray = self::create();
 
         foreach ($array as $item) {
             $typedArray->append($item);
@@ -60,10 +81,13 @@ abstract class TypedArray extends \ArrayIterator {
         return $typedArray;
     }
 
-    final public static function &init(): self {
+    /**
+     * @return TypedArray
+     */
+    final public static function create(): self {
         static $instance = null;
-        /** @noinspection ClassConstantCanBeUsedInspection */
-        $class = \get_called_class();
+
+        $class = static::class;
         if ($instance === null) {
             $instance = new $class();
         }
@@ -87,14 +111,6 @@ abstract class TypedArray extends \ArrayIterator {
         parent::append($value);
     }
 
-    protected function isDuplicate($value): bool {
-        return false;
-    }
-
-    final public function allowDuplicates($allow = true): void {
-        $this->allowDuplicates = $allow;
-    }
-
     /**
      * @param array $values
      * @param callable $callable
@@ -102,7 +118,7 @@ abstract class TypedArray extends \ArrayIterator {
      */
     final public static function map(array $values, callable $callable): self {
 
-        $typedArray = self::init();
+        $typedArray = self::create();
 
         $array = array_map($callable, $values);
 
@@ -112,5 +128,12 @@ abstract class TypedArray extends \ArrayIterator {
 
         return $typedArray;
 
+    }
+
+    /**
+     * @param bool $allow
+     */
+    final public function allowDuplicates($allow = true): void {
+        $this->allowDuplicates = $allow;
     }
 }
