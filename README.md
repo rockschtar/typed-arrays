@@ -2,7 +2,7 @@
 
 # Description
 
-WordPress [Must Use Plugin](https://codex.wordpress.org/Must_Use_Plugins). Enables meta-data revisions via simplified hooks/filters for usage with roots/bedrock based WordPress projects.
+
 
 # Requirements
 
