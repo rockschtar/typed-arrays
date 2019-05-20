@@ -2,7 +2,7 @@
 
 # Description
 
-
+ Primitive typed arrays and typed array abstraction for objects with type hints.
 
 # Requirements
 
@@ -43,8 +43,8 @@ class DummyTypedArray extends TypedArray {
      * @return string
      */
     protected function getType(): string {
-		return DummyClass::class;
-	}
+        return DummyClass::class;
+    }
 }
 ```
 
@@ -52,26 +52,8 @@ class DummyTypedArray extends TypedArray {
 
 rockschtar/typed-arrays is open source and released under MIT license. See LICENSE.md file for more info.
 
-## Usage
-
-This library allows you to store changes in post meta fields to the built in WordPress Revision Management System.
-
-    add_filter('rswpmr_revision_meta_fields', function($fields) {
-        $fields['your_post_type_name']['your_post_meta_field'] = __('Your Meta Field Title');
-        return $fields;
-    });
-
-    add_filter('rswpmr_revision_meta_fields_callbacks', function($field_callbacks) {
-        $field_callbacks[] = array('field' => 'your_post_meta_field', 'callback' => function($value, $field) {
-            //option to convert your post meta value to a readable value
-            return $value;
-        });
-
-        return $field_callbacks;
-    });
     
-
 # Question? Issues?
 
-rockschtar/wordpress-cronjob is hosted on GitLab. Feel free to open issues there for suggestions, questions and real issues.
+rockschtar/typed-arrays is hosted on GitLab. Feel free to open issues there for suggestions, questions and real issues.
     
