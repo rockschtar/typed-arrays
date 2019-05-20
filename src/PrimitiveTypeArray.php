@@ -8,7 +8,7 @@
 
 namespace Rockschtar\TypedArrays;
 
-abstract class PrimitiveTypeArray extends TypedArray {
+abstract class PrimitiveTypeArray extends TypedArray{
 
 	protected function isDuplicate($value): bool {
 
