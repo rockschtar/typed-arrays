@@ -18,4 +18,3 @@ chmod +x /usr/local/bin/phpunit
 # docker-php-ext-install pdo_mysql
 
 # Enable Xdebug
-- docker-php-ext-enable xdebug
