@@ -35,8 +35,8 @@ class DummyTypedArray extends TypedArray {
      * @return DummyClass
      */
     public function current() : DummyClass {
-		return parent::current();
-	}
+        return parent::current();
+    }
 
     /**
      * Returns the type of the typed array
