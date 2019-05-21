@@ -17,11 +17,14 @@
   "repositories": [
 
   ],
-
+  "autoload-dev": {
+    "psr-4": {
+      "Rockschtar\\TypedArrays\\Test\\" : "tests/"
+    }
+  },
   "autoload": {
     "psr-4": {
-      "Rockschtar\\TypedArrays\\": "src/",
-      "Rockschtar\\TypedArrays\\Test\\" : "tests/"
+      "Rockschtar\\TypedArrays\\": "src/"
     }
   }
 }
