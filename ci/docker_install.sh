@@ -7,7 +7,7 @@ set -xe
 
 # Install git (the php image doesn't have it) which is required by composer
 apt-get update -yqq
-apt-get install git wget curl zlib1g-dev -yqq
+apt-get install git wget curl zlib1g-dev libzip-dev -yqq --fix-missing apt-utils
 
 # Install phpunit, the tool that we will use for testing
 curl --location --output /usr/local/bin/phpunit https://phar.phpunit.de/phpunit-7.phar
