@@ -17,4 +17,8 @@ chmod +x /usr/local/bin/phpunit
 # Here you can install any other extension that you need
 # docker-php-ext-install pdo_mysql
 
+docker-php-ext-install zip
+
+RUN pecl install xdebug
+
 # Enable Xdebug
