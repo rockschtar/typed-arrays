@@ -19,6 +19,6 @@ chmod +x /usr/local/bin/phpunit
 
 docker-php-ext-install zip
 
-RUN pecl install xdebug
+pecl install xdebug
 
 # Enable Xdebug
