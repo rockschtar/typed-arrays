@@ -15,7 +15,7 @@ before_script:
 
 test:unit:
   script:
-    - phpunit --configuration phpunit.xml
+    - phpunit --configuration --bootstrap vendor/autoload.php phpunit.xml
 test:coverage:
   script:
-    - phpunit --configuration phpunit.xml --coverage-text --colors=never
+    - phpunit --configuration phpunit.xml --bootstrap vendor/autoload.php --coverage-text --colors=never
