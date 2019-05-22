@@ -19,6 +19,10 @@ use Rockschtar\TypedArrays\Test\Dummy\DummyClass;
 use Rockschtar\TypedArrays\Test\Dummy\DummyTypedArray;
 
 
+/**
+ * Class TypedArrayTest
+ * @package Rockschtar\TypedArrays\Test
+ */
 class TypedArrayTest extends TestCase {
 
     private function getTestValues(): array {
@@ -37,6 +41,10 @@ class TypedArrayTest extends TestCase {
      * @covers \Rockschtar\TypedArrays\IntegerArray
      * @covers \Rockschtar\TypedArrays\NumericArray
      * @covers \Rockschtar\TypedArrays\StringArray
+     * @covers \Rockschtar\TypedArrays\FloatArray::validate
+     * @covers \Rockschtar\TypedArrays\IntegerArray::validate
+     * @covers \Rockschtar\TypedArrays\NumericArray::validate
+     * @covers \Rockschtar\TypedArrays\StringArray::validate
      * @covers \Rockschtar\TypedArrays\PrimitiveTypeArray
      */
     public function testPrimitiveTypes(): void {

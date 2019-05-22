@@ -8,8 +8,18 @@ use PHPUnit\Framework\TestCase;
 use Rockschtar\TypedArrays\Hashmap;
 use Rockschtar\TypedArrays\Models\KeyValuePair;
 
+/**
+ * Class HashmapTest
+ * @covers \Rockschtar\TypedArrays\Hashmap
+ * @package Rockschtar\TypedArrays\Test
+ */
 class HashmapTest extends TestCase {
 
+    /**
+     * @covers \Rockschtar\TypedArrays\Hashmap::validate
+     * @covers \Rockschtar\TypedArrays\Hashmap::getType
+     * @covers \Rockschtar\TypedArrays\Hashmap::add
+     */
     public function testHashmap(): void {
 
         $hashmap = new Hashmap();
