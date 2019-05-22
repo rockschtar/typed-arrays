@@ -1,5 +1,6 @@
 {
   "name": "rockschtar/typed-arrays",
+  "description": "Primitive typed arrays and typed array abstraction with type hints.",
   "license": "MIT",
   "authors": [
     {
@@ -11,11 +12,16 @@
     "php": ">=7.1"
   },
   "require-dev": {
+    "phpunit/phpunit": "7.5.*"
   },
   "repositories": [
 
   ],
-
+  "autoload-dev": {
+    "psr-4": {
+      "Rockschtar\\TypedArrays\\Test\\" : "tests/"
+    }
+  },
   "autoload": {
     "psr-4": {
       "Rockschtar\\TypedArrays\\": "src/"
