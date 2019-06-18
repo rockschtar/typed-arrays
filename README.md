@@ -12,7 +12,7 @@
 # Install
 
 ```
-composer require rockschtar/wordpress-typed-arrays
+composer require rockschtar/typed-arrays
 ```
 
 # Usage
