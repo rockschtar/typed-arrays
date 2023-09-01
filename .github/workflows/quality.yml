@@ -3,7 +3,7 @@ name: PHPStan and Pest Tests
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   analyze-and-test:
