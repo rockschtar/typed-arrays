@@ -1,52 +1,34 @@
 <?php
+
 /**
  * @author: StefanHelmer
  */
 
 namespace Rockschtar\TypedArrays\Models;
 
-class KeyValuePair {
-
-    private $key;
-
-    private $value;
-
-    /**
-     * KeyValuePair constructor.
-     * @param $key
-     * @param $value
-     */
-    public function __construct($key, $value) {
-        $this->key = $key;
-        $this->value = $value;
+class KeyValuePair
+{
+    public function __construct(private mixed $key, private mixed $value)
+    {
     }
 
-    /**
-     * @return mixed
-     */
-    public function getKey() {
+    public function getKey(): mixed
+    {
         return $this->key;
     }
 
-    /**
-     * @param mixed $key
-     */
-    public function setKey($key): void {
+    public function setKey(mixed $key): void
+    {
         $this->key = $key;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getValue() {
+    public function getValue(): mixed
+    {
         return $this->value;
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function setValue($value): void {
+    public function setValue(mixed $value): void
+    {
         $this->value = $value;
     }
-
 }

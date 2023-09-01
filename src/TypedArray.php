@@ -1,26 +1,20 @@
 <?php
-/**
- * @author: StefanHelmer
- */
 
 namespace Rockschtar\TypedArrays;
 
 use ArrayIterator;
 use InvalidArgumentException;
 
-abstract class TypedArray extends ArrayIterator {
-
-    /**
-     * @var bool
-     */
-    protected $allowDuplicates = true;
+abstract class TypedArray extends ArrayIterator
+{
+    protected bool $allowDuplicates = true;
 
     /**
      * TypedArray constructor.
-     * @param array $items
-     * @throws InvalidArgumentException
+     * @param mixed[] $items
      */
-    public function __construct(array $items = []) {
+    public function __construct(array $items = [])
+    {
         foreach ($items as $item) {
             if (!$this->validate($item)) {
                 throw new InvalidArgumentException($item);
@@ -30,24 +24,15 @@ abstract class TypedArray extends ArrayIterator {
         parent::__construct($items);
     }
 
-    /**
-     * @return string
-     */
     abstract protected function getType(): string;
 
-    /**
-     * @param $value
-     * @return bool
-     */
-    protected function validate($value): bool {
+    protected function validate(mixed $value): bool
+    {
         return is_a($value, $this->getType());
     }
 
-    /**
-     * @param mixed $itemToValidate
-     * @return bool
-     */
-    protected function isDuplicate($itemToValidate): bool {
+    protected function isDuplicate(mixed $itemToValidate): bool
+    {
         foreach ($this as $item) {
             if ($item === $itemToValidate) {
                 return true;
@@ -58,20 +43,19 @@ abstract class TypedArray extends ArrayIterator {
     }
 
     /**
-     * @param mixed ...$values
-     * @return static
      * @throws InvalidArgumentException
      */
-    final public static function fromValues(... $values): self {
+    final public static function fromValues(mixed ...$values): self
+    {
         return self::fromArray($values);
     }
 
     /**
-     * @param array $array
-     * @return static
      * @throws InvalidArgumentException
+     * @param mixed[] $array
      */
-    final public static function fromArray(array $array): self {
+    final public static function fromArray(array $array): self
+    {
         $typedArray = self::create();
 
         foreach ($array as $item) {
@@ -81,10 +65,8 @@ abstract class TypedArray extends ArrayIterator {
         return $typedArray;
     }
 
-    /**
-     * @return TypedArray
-     */
-    final public static function create(): self {
+    final public static function create(): self
+    {
         static $instance = null;
 
         $class = static::class;
@@ -96,10 +78,10 @@ abstract class TypedArray extends ArrayIterator {
     }
 
     /**
-     * @param mixed $value
      * @throws InvalidArgumentException
      */
-    final public function append($value): void {
+    final public function append(mixed $value): void
+    {
         if (!$this->validate($value)) {
             throw new InvalidArgumentException('');
         }
@@ -111,12 +93,12 @@ abstract class TypedArray extends ArrayIterator {
         parent::append($value);
     }
 
+
     /**
-     * @param array $values
-     * @param callable $callable
-     * @return static
+     * @param mixed[] $values
      */
-    final public static function map(array $values, callable $callable): self {
+    final public static function map(array $values, callable $callable): self
+    {
 
         $typedArray = self::create();
 
@@ -127,13 +109,10 @@ abstract class TypedArray extends ArrayIterator {
         }
 
         return $typedArray;
-
     }
 
-    /**
-     * @param bool $allow
-     */
-    final public function allowDuplicates($allow = true): void {
+    final public function allowDuplicates(bool $allow = true): void
+    {
         $this->allowDuplicates = $allow;
     }
 }

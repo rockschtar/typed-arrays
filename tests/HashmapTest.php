@@ -1,9 +1,8 @@
 <?php
 
-
 namespace Rockschtar\TypedArrays\Test;
 
-
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Rockschtar\TypedArrays\Hashmap;
 use Rockschtar\TypedArrays\Models\KeyValuePair;
@@ -13,14 +12,15 @@ use Rockschtar\TypedArrays\Models\KeyValuePair;
  * @covers \Rockschtar\TypedArrays\Hashmap
  * @package Rockschtar\TypedArrays\Test
  */
-class HashmapTest extends TestCase {
-
+class HashmapTest extends TestCase
+{
     /**
      * @covers \Rockschtar\TypedArrays\Hashmap::validate
      * @covers \Rockschtar\TypedArrays\Hashmap::getType
      * @covers \Rockschtar\TypedArrays\Hashmap::add
      */
-    public function testHashmap(): void {
+    public function testHashmap(): void
+    {
 
         $hashmap = new Hashmap();
 
@@ -40,9 +40,7 @@ class HashmapTest extends TestCase {
         $this->assertEquals('key2', $keyValuePair2->getKey());
         $this->assertEquals('value2', $keyValuePair2->getValue());
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $hashmap->append('hello');
-
     }
-
 }

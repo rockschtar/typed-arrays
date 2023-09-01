@@ -1,0 +1,31 @@
+name: PHPStan and Pest Tests
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  analyze-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1' # Passe die PHP-Version an, wenn nötig
+
+      - name: Install Composer dependencies
+        run: composer install
+
+      - name: Run phpstan
+        run: composer phpstan
+
+      - name: Run phpcs
+        run: composer phpcs --error-severity=1 --warning-severity=8
+
+      - name: Run pest
+        run: composer test

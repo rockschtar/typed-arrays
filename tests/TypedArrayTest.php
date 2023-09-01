@@ -1,14 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: rocks
- * Date: 14.06.2018
- * Time: 19:45
- */
 
 namespace Rockschtar\TypedArrays\Test;
 
-use phpDocumentor\Reflection\Types\Integer;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Rockschtar\TypedArrays\FloatArray;
 use Rockschtar\TypedArrays\IntegerArray;
@@ -18,18 +12,18 @@ use Rockschtar\TypedArrays\StringArray;
 use Rockschtar\TypedArrays\Test\Dummy\DummyClass;
 use Rockschtar\TypedArrays\Test\Dummy\DummyTypedArray;
 
-
 /**
  * Class TypedArrayTest
  * @package Rockschtar\TypedArrays\Test
  */
-class TypedArrayTest extends TestCase {
-
-    private function getTestValues(): array {
+class TypedArrayTest extends TestCase
+{
+    private function getTestValues(): array
+    {
 
         $testValues = [];
         $testValues[StringArray::class] = ['This is as string'];
-        $testValues[Integer::class] = [1];
+        $testValues[IntegerArray::class] = [1];
         $testValues[FloatArray::class] = [1.1];
         $testValues[NumericArray::class] = [1.1, 2];
         $testValues[DummyTypedArray::class] = [new DummyTypedArray()];
@@ -47,7 +41,8 @@ class TypedArrayTest extends TestCase {
      * @covers \Rockschtar\TypedArrays\StringArray::validate
      * @covers \Rockschtar\TypedArrays\PrimitiveTypeArray
      */
-    public function testPrimitiveTypes(): void {
+    public function testPrimitiveTypes(): void
+    {
 
         /* @var PrimitiveTypeArray[] $primitveTypedArrays */
         $primitveTypedArrays = [];
@@ -59,7 +54,6 @@ class TypedArrayTest extends TestCase {
 
         foreach ($primitveTypedArrays as $primitveTypedArray) {
             foreach ($this->getTestValues() as $key => $testValues) {
-
                 if ($key === gettype($primitveTypedArray)) {
                     foreach ($testValues as $testValue) {
                         $primitveTypedArray->append($testValue);
@@ -67,12 +61,9 @@ class TypedArrayTest extends TestCase {
                     }
                 } else {
                     foreach ($testValues as $testValue) {
-                        /** @noinspection DisconnectedForeachInstructionInspection */
-                        $this->expectException(\InvalidArgumentException::class);
-                        /** @noinspection DisconnectedForeachInstructionInspection */
+                        $this->expectException(InvalidArgumentException::class);
                         $this->addToAssertionCount(1);
                         $primitveTypedArray->append($testValue);
-
                     }
                 }
             }
@@ -82,7 +73,8 @@ class TypedArrayTest extends TestCase {
     /**
      * @covers \Rockschtar\TypedArrays\TypedArray
      */
-    public function testAbstractTypedArray(): void {
+    public function testAbstractTypedArray(): void
+    {
 
         $dummyClass = new DummyClass();
         $testArray = new DummyTypedArray();
@@ -91,8 +83,7 @@ class TypedArrayTest extends TestCase {
         $this->assertCount(1, $testArray);
         $this->assertInstanceOf(DummyClass::class, $testArray->offsetGet(0));
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $testArray->append('Hello World');
-
     }
 }

@@ -6,7 +6,7 @@
 
 # Requirements
 
-  - PHP 7.1+
+  - PHP 7.4+
   - [Composer](https://getcomposer.org/) to install
 
 # Install

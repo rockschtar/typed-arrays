@@ -1,0 +1,3 @@
+services:
+  php_cli_xdebug:
+    image: prooph/php:8.1-cli-xdebug

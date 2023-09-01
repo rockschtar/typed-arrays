@@ -1,27 +1,23 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: rocks
- * Date: 14.06.2018
- * Time: 17:46
- */
 
 namespace Rockschtar\TypedArrays;
 
-abstract class PrimitiveTypeArray extends TypedArray{
+abstract class PrimitiveTypeArray extends TypedArray
+{
+    protected function isDuplicate(mixed $value): bool
+    {
 
-	protected function isDuplicate($value): bool {
+        foreach ($this as $item) {
+            if ($item === $value) {
+                return true;
+            }
+        }
 
-		foreach($this as $item) {
-			if($item === $value) {
-				return true;
-			}
-		}
+        return false;
+    }
 
-		return false;
-	}
-
-	final public function getType(): string {
-		return '';
-	}
+    final public function getType(): string
+    {
+        return '';
+    }
 }
